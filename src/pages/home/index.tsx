@@ -1,25 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Form } from "react-router-dom";
 import { API_KEY } from "../../config/api_key";
-import { Container, MovieList, Movie } from "./components";
+import { Container, MovieList, Movie, Busca, IPNT } from "./components";
+import Buscador from "./buscador";
 
 
 
 export default function Home(){
 
+
     const [movies, setMovies] = useState<any[]>([])
     const image_path ="https://image.tmdb.org/t/p/w500"
+    
+
 
     useEffect(() => {
         fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=pt-BR&page=1`)
             .then(response => response.json())
             .then(data => setMovies(data.results))
     }, [])
-    
+             
   return(
     
         <Container>
-            <h1>Movies</h1>
+           
+           <Buscador/>
+            
             <MovieList>
                 {
                     movies.map( movie => {
@@ -34,5 +40,4 @@ export default function Home(){
             </MovieList>
         </Container>
     );
-  
-}
+            }
